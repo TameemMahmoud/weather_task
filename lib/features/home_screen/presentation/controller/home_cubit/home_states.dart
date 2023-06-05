@@ -13,3 +13,5 @@ class GetFiveDaysWeatherLoadingState extends HomeStates {}
 class GetFiveDaysWeatherSuccessState extends HomeStates {}
 
 class GetFiveDaysWeatherErrorState extends HomeStates {}
+
+class ChangeTempState extends HomeStates {}

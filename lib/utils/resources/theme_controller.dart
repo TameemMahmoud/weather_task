@@ -7,7 +7,7 @@ class Styles {
     return ThemeData(
       scaffoldBackgroundColor:
           isDarkTheme ? Colors.black : const Color(0xfff9f9f9),
-      primarySwatch: Colors.teal,
+      primarySwatch: Colors.purple,
       primaryColor: isDarkTheme ? Colors.black : Colors.grey.shade300,
       backgroundColor: isDarkTheme ? Colors.grey.shade700 : Colors.white,
       indicatorColor:

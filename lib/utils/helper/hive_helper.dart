@@ -18,6 +18,7 @@ class HiveHelper {
         : false;
   }
 
+
   static void setTempMood(bool isCelsius) {
     Hive.box(HiveHelper.tempMood).put(HiveHelper.tempMood, isCelsius);
   }
@@ -25,7 +26,7 @@ class HiveHelper {
   static bool getTempMood() {
     return Hive.box(HiveHelper.tempMood).isNotEmpty
         ? Hive.box(HiveHelper.tempMood).get(HiveHelper.tempMood)
-        : false;
+        : true;
   }
 
 

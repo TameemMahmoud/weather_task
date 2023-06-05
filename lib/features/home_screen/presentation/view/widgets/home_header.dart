@@ -1,9 +1,11 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_task/features/home_screen/presentation/controller/theme_cubit/theme_cubit.dart';
+import 'package:weather_task/features/home_screen/presentation/controller/theme_cubit/theme_states.dart';
 import 'package:weather_task/utils/helper/hive_helper.dart';
 import 'package:weather_task/utils/resources/app_colors.dart';
 import 'package:weather_task/utils/resources/app_fonts.dart';
@@ -11,6 +13,7 @@ import 'package:weather_task/utils/resources/constants.dart';
 
 import '../../../../../utils/resources/images.dart';
 import '../../../../../widgets/animated_image.dart';
+import '../../../data/model/weather_model.dart';
 import '../../controller/home_cubit/home_cubit.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -62,8 +65,8 @@ class HomeHeader extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   onSuffixTap: () {
                     if (textController.text.isNotEmpty) {
-                      cubit.getCurrentWeather(context, textController.text);
-                      cubit.getFiveDaysWeather(context, textController.text);
+                      // cubit.getCurrentWeather(context, textController.text);
+                      // cubit.getFiveDaysWeather(context, textController.text);
                     }
                   },
                   onSubmitted: (value) {
@@ -95,7 +98,7 @@ class HomeHeader extends StatelessWidget {
                   elevation: 4,
                   child: IconButton(
                     onPressed: () {
-                      ThemeCubit.get(context).changeTempMode();
+                      cubit.changeTempMode();
                     },
                     icon: HiveHelper.getTempMood()
                         ? const Text('\u2103')
@@ -156,11 +159,10 @@ class HomeHeader extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                '${(cubit.currentWeather!.main!.temp!).round().toString()}\u2103',
+                                '${(cubit.currentWeather!.main!.temp!).round().toString()} ${HiveHelper.getTempMood()? '\u2103' : '\u2109'}',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium!
-                                    .copyWith(fontFamily: 'flutterfonts'),
+                                    .displayMedium!,
                               ),
                               Text(
                                 'min: ${(cubit.currentWeather!.main!.tempMin!).round().toString()}\u2103 / max: ${(cubit.currentWeather!.main!.tempMax!).round().toString()}\u2103',

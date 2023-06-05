@@ -42,24 +42,18 @@ class FiveDaysWidget extends StatelessWidget {
               Text('${(data.main.temp).round().toString()}\u2103', style: AppFonts.headlineStyle.copyWith(color: AppColors.mainColor),),
               Text(
                 'min: ${(data.main.tempMin).round().toString()}\u2103 / max: ${(data.main.tempMax).round().toString()}\u2103',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
+                style: AppFonts.smallFont
                     .copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'flutterfonts',
                 ),
               ),
               Text(
                 'wind ${data.wind.speed} m/s',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
+                style: AppFonts.smallFont
                     .copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'flutterfonts',
                 ),
               ),
             ],

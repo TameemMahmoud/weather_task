@@ -10,18 +10,10 @@ class ThemeCubit extends Cubit<ThemeStates> {
   static ThemeCubit get(context) => BlocProvider.of(context);
 
   bool isDark = false;
-  bool isCelsius = false;
-
   void changeAppMode (){
     isDark = !isDark;
     HiveHelper.setMood(isDark);
     emit(ChangeThemeState());
-  }
-
-  void changeTempMode (){
-    isCelsius = !isCelsius;
-    HiveHelper.setTempMood(isCelsius);
-    emit(ChangeTempState());
   }
 
 }
