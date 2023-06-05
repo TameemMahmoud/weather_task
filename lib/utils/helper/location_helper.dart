@@ -1,6 +1,8 @@
 import 'package:geolocator/geolocator.dart';
 
 import 'package:location/location.dart'as location;
+import 'package:quickalert/quickalert.dart';
+import 'package:weather_task/utils/app/my_app.dart';
 
 class LocationHelper {
   /// Determine the current position of the device.
@@ -19,6 +21,12 @@ class LocationHelper {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      QuickAlert.show(
+        context: navigatorKey.currentState!.context,
+        type: QuickAlertType.error,
+        title: 'بيانات موقعك',
+        text: 'Please, ',
+      );
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
@@ -29,6 +37,12 @@ class LocationHelper {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        QuickAlert.show(
+          context: navigatorKey.currentState!.context,
+          type: QuickAlertType.error,
+          title: 'Location Service',
+          text: 'Please, let the app access to your location',
+        );
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
         // Android's shouldShowRequestPermissionRationale
