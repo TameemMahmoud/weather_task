@@ -172,7 +172,7 @@ class HomeHeader extends StatelessWidget {
                                     Theme.of(context).textTheme.displayMedium!,
                               ),
                               Text(
-                                'min: ${(cubit.currentWeather!.main!.tempMin!).round().toString()}\u2103 / max: ${(cubit.currentWeather!.main!.tempMax!).round().toString()}\u2103',
+                                'min: ${(cubit.currentWeather!.main!.tempMin!).round().toString()}${HiveHelper.getTempMood() ? '\u2103' : '\u2109'} / max: ${(cubit.currentWeather!.main!.tempMax!).round().toString()}${HiveHelper.getTempMood() ? '\u2103' : '\u2109'}',
                                 style: AppFonts.smallFont.copyWith(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

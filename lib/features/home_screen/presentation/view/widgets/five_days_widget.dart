@@ -4,6 +4,7 @@ import 'package:weather_task/utils/resources/app_fonts.dart';
 import 'package:weather_task/utils/resources/constants.dart';
 import 'package:weather_task/utils/resources/icons.dart';
 
+import '../../../../../utils/helper/hive_helper.dart';
 import '../../../../../utils/resources/app_colors.dart';
 import '../../../data/model/five_days_model.dart';
 
@@ -39,9 +40,9 @@ class FiveDaysWidget extends StatelessWidget {
               Text(data.weather[0].description.toUpperCase(), style: AppFonts.headlineStyle.copyWith(color: Colors.grey),),
               Icon(weatherIcon(data.weather[0].icon)),
               const SizedBox(height: 10,),
-              Text('${(data.main.temp).round().toString()}\u2103', style: AppFonts.headlineStyle.copyWith(color: AppColors.mainColor),),
+              Text('${(data.main.temp).round().toString()}${HiveHelper.getTempMood() ? '\u2103' : '\u2109'}', style: AppFonts.headlineStyle.copyWith(color: AppColors.mainColor),),
               Text(
-                'min: ${(data.main.tempMin).round().toString()}\u2103 / max: ${(data.main.tempMax).round().toString()}\u2103',
+                'min: ${(data.main.tempMin).round().toString()}${HiveHelper.getTempMood() ? '\u2103' : '\u2109'} / max: ${(data.main.tempMax).round().toString()}${HiveHelper.getTempMood() ? '\u2103' : '\u2109'}',
                 style: AppFonts.smallFont
                     .copyWith(
                   fontSize: 14,
