@@ -65,8 +65,16 @@ class HomeHeader extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   onSuffixTap: () {
                     if (textController.text.isNotEmpty) {
-                      cubit.getCurrentWeather(context:context,city: textController.text);
-                      cubit.getFiveDaysWeather(context: context, city: textController.text);
+                      cubit.getCurrentWeather(
+                        context: context,
+                        city: textController.text,
+                        isCelsius: HiveHelper.getTempMood(),
+                      );
+                      cubit.getFiveDaysWeather(
+                        context: context,
+                        city: textController.text,
+                        isCelsius: HiveHelper.getTempMood(),
+                      );
                     }
                   },
                   onSubmitted: (value) {
@@ -152,25 +160,23 @@ class HomeHeader extends StatelessWidget {
                           Column(
                             children: <Widget>[
                               Text(
-                                cubit.currentWeather!.weather![0].description!
-                                        .toUpperCase() ??
-                                    '',
-                                style: AppFonts.smallFont.copyWith(fontSize: 20)
-                              ),
+                                  cubit.currentWeather!.weather![0].description!
+                                          .toUpperCase() ??
+                                      '',
+                                  style: AppFonts.smallFont
+                                      .copyWith(fontSize: 20)),
                               const SizedBox(height: 10),
                               Text(
-                                '${(cubit.currentWeather!.main!.temp!).round().toString()} ${HiveHelper.getTempMood()? '\u2103' : '\u2109'}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!,
+                                '${(cubit.currentWeather!.main!.temp!).round().toString()} ${HiveHelper.getTempMood() ? '\u2103' : '\u2109'}',
+                                style:
+                                    Theme.of(context).textTheme.displayMedium!,
                               ),
                               Text(
                                 'min: ${(cubit.currentWeather!.main!.tempMin!).round().toString()}\u2103 / max: ${(cubit.currentWeather!.main!.tempMax!).round().toString()}\u2103',
-                                style: AppFonts.smallFont
-                                    .copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                style: AppFonts.smallFont.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
@@ -184,11 +190,10 @@ class HomeHeader extends StatelessWidget {
                               ),
                               Text(
                                 'wind ${cubit.currentWeather!.wind!.speed} m/s',
-                                style: AppFonts.smallFont
-                                    .copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                style: AppFonts.smallFont.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),

@@ -20,42 +20,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-    BlocProvider<HomeCubit>(
-    create: (context)
-    =>
-    HomeCubit()
-      ..getCurrentWeather(context: navigatorKey.currentState!.context,
-        city: '',
-        lat: position!.latitude.toString(),
-        lng: position!.longitude.toString(),)
-
-    ..getFiveDaysWeather(context: navigatorKey.currentState!.context,
-      city: '',
-      lat: position!.latitude.toString(),
-      lng: position!.longitude.toString(),),
-    ),
-    BlocProvider<ThemeCubit>(
-    create: (context) => ThemeCubit(),
-    ),
-    ],
-    child: BlocBuilder<ThemeCubit, ThemeStates>(
-    builder: (context, state) {
-    return MaterialApp(
-    navigatorKey: navigatorKey,
-    title: 'Weather App',
-    localizationsDelegates: AppConfig.localizationsDelegates,
-    supportedLocales: const [
-    Locale('en'),
-    ],
-    locale: const Locale('en'),
-    debugShowCheckedModeBanner: false,
-    theme: Styles.themeData(HiveHelper.getMood(), context),
-    home: const SplashScreen(),
-    );
-    }
-    )
-    ,
+      providers: [
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit()
+            ..getCurrentWeather(
+              context: navigatorKey.currentState!.context,
+              city: '',
+              isCelsius: HiveHelper.getTempMood(),
+              lat: position!.latitude.toString(),
+              lng: position!.longitude.toString(),
+            )
+            ..getFiveDaysWeather(
+              context: navigatorKey.currentState!.context,
+              city: '',
+              isCelsius: HiveHelper.getTempMood(),
+              lat: position!.latitude.toString(),
+              lng: position!.longitude.toString(),
+            ),
+        ),
+        BlocProvider<ThemeCubit>(
+          create: (context) => ThemeCubit(),
+        ),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeStates>(builder: (context, state) {
+        return MaterialApp(
+          navigatorKey: navigatorKey,
+          title: 'Weather App',
+          localizationsDelegates: AppConfig.localizationsDelegates,
+          supportedLocales: const [
+            Locale('en'),
+          ],
+          locale: const Locale('en'),
+          debugShowCheckedModeBanner: false,
+          theme: Styles.themeData(HiveHelper.getMood(), context),
+          home: const SplashScreen(),
+        );
+      }),
     );
   }
 }

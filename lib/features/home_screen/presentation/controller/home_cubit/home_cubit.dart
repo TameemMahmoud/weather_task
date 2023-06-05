@@ -30,22 +30,34 @@ class HomeCubit extends Cubit<HomeStates> {
   WeatherModel? currentWeather;
 
   bool isCelsius = true;
-  void getCurrentWeather({required BuildContext context,required String city, String? lng, String? lat}) {
+
+  void getCurrentWeather({
+    required BuildContext context,
+    required String city,
+    required bool isCelsius,
+    String? lng,
+    String? lat,
+  }) {
     print('ttt');
     emit(
       GetCurrentWeatherLoadingState(),
     );
     // showLoadingDialog(context, dismissible: false);
-    _currentRepo.getCurrentWeather(body: lat == null? {
-      'appid': ServicesURLs.apiKey,
-      'q': city,
-      'units': HiveHelper.getTempMood()? 'metric' : 'standard',
-    } : {
-      'appid': ServicesURLs.apiKey,
-      'lat': lat,
-      'lon': lng,
-      'units': HiveHelper.getTempMood()? 'metric' : 'standard',
-    }).then((value) {
+    _currentRepo
+        .getCurrentWeather(
+            body: lat == null
+                ? {
+                    'appid': ServicesURLs.apiKey,
+                    'q': city,
+                    'units': HiveHelper.getTempMood() ? 'metric' : 'standard',
+                  }
+                : {
+                    'appid': ServicesURLs.apiKey,
+                    'lat': lat,
+                    'lon': lng,
+                    'units': isCelsius ? 'metric' : 'standard',
+                  })
+        .then((value) {
       // dismissLoadingDialog(context);
       value.fold((l) {
         String error = '';
@@ -75,22 +87,33 @@ class HomeCubit extends Cubit<HomeStates> {
 
   FiveDaysModel? fiveDaysModel;
 
-  void getFiveDaysWeather({required BuildContext context,required String city, String? lng, String? lat}) {
+  void getFiveDaysWeather({
+    required BuildContext context,
+    required String city,
+    required bool isCelsius,
+    String? lng,
+    String? lat,
+  }) {
     print('ttt');
     emit(
       GetFiveDaysWeatherLoadingState(),
     );
     // showLoadingDialog(context, dismissible: false);
-    _fiveDaysRepo.getFiveDaysWeather(body: lat == null? {
-      'appid': ServicesURLs.apiKey,
-      'q': city,
-      'units': HiveHelper.getTempMood()? 'metric' : 'standard',
-    } : {
-      'appid': ServicesURLs.apiKey,
-      'lat': lat,
-      'lon': lng,
-      'units': HiveHelper.getTempMood()? 'metric' : 'standard',
-    }).then((value) {
+    _fiveDaysRepo
+        .getFiveDaysWeather(
+            body: lat == null
+                ? {
+                    'appid': ServicesURLs.apiKey,
+                    'q': city,
+                    'units': isCelsius ?  'metric' : 'standard',
+                  }
+                : {
+                    'appid': ServicesURLs.apiKey,
+                    'lat': lat,
+                    'lon': lng,
+                    'units': HiveHelper.getTempMood() ? 'metric' : 'standard',
+                  })
+        .then((value) {
       // dismissLoadingDialog(context);
       value.fold((l) {
         String error = '';
@@ -113,12 +136,9 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-
-
-  void changeTempMode (){
+  void changeTempMode() {
     isCelsius = !isCelsius;
     HiveHelper.setTempMood(isCelsius);
-    // getCurrentWeather(navigatorKey.currentState!.context, '');
     emit(ChangeTempState());
   }
 }
