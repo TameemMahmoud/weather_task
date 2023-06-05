@@ -65,8 +65,8 @@ class HomeHeader extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   onSuffixTap: () {
                     if (textController.text.isNotEmpty) {
-                      // cubit.getCurrentWeather(context, textController.text);
-                      // cubit.getFiveDaysWeather(context, textController.text);
+                      cubit.getCurrentWeather(context:context,city: textController.text);
+                      cubit.getFiveDaysWeather(context: context, city: textController.text);
                     }
                   },
                   onSubmitted: (value) {
