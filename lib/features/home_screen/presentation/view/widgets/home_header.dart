@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_task/features/home_screen/presentation/controller/theme_cubit/theme_cubit.dart';
 import 'package:weather_task/features/home_screen/presentation/controller/theme_cubit/theme_states.dart';
+import 'package:weather_task/main.dart';
 import 'package:weather_task/utils/helper/hive_helper.dart';
 import 'package:weather_task/utils/resources/app_colors.dart';
 import 'package:weather_task/utils/resources/app_fonts.dart';
@@ -65,9 +66,10 @@ class HomeHeader extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   onSuffixTap: () {
                     if (textController.text.isNotEmpty) {
+                      cubit.city = textController.text;
                       cubit.getCurrentWeather(
                         context: context,
-                        city: textController.text,
+                        // city: textController.text,
                         isCelsius: HiveHelper.getTempMood(),
                       );
                       cubit.getFiveDaysWeather(
@@ -75,6 +77,8 @@ class HomeHeader extends StatelessWidget {
                         city: textController.text,
                         isCelsius: HiveHelper.getTempMood(),
                       );
+                    } else {
+                      cubit.city = null;
                     }
                   },
                   onSubmitted: (value) {
@@ -106,7 +110,14 @@ class HomeHeader extends StatelessWidget {
                   elevation: 4,
                   child: IconButton(
                     onPressed: () {
+                      print('here is the city ${cubit.city}');
                       cubit.changeTempMode();
+                      cubit.getCurrentWeather(
+                          context: context,
+                          // city: textController.text,
+                          isCelsius: cubit.isCelsius,
+                          lng: position!.longitude.toString(),
+                          lat: position!.latitude.toString());
                     },
                     icon: HiveHelper.getTempMood()
                         ? const Text('\u2103')

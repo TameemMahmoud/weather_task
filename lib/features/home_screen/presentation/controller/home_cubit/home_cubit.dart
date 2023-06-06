@@ -31,9 +31,10 @@ class HomeCubit extends Cubit<HomeStates> {
 
   bool isCelsius = true;
 
+  String? city;
+
   void getCurrentWeather({
     required BuildContext context,
-    required String city,
     required bool isCelsius,
     String? lng,
     String? lat,
@@ -43,21 +44,13 @@ class HomeCubit extends Cubit<HomeStates> {
       GetCurrentWeatherLoadingState(),
     );
     // showLoadingDialog(context, dismissible: false);
-    _currentRepo
-        .getCurrentWeather(
-            body: lat == null
-                ? {
-                    'appid': ServicesURLs.apiKey,
-                    'q': city,
-                    'units': HiveHelper.getTempMood() ? 'metric' : 'standard',
-                  }
-                : {
-                    'appid': ServicesURLs.apiKey,
-                    'lat': lat,
-                    'lon': lng,
-                    'units': isCelsius ? 'metric' : 'standard',
-                  })
-        .then((value) {
+    _currentRepo.getCurrentWeather(body: {
+      'appid': ServicesURLs.apiKey,
+      if (city != null) 'q': city else
+        ...{'lat': lat,
+          'lon': lng,},
+      'units': isCelsius ? 'metric' : 'standard',
+    }).then((value) {
       // dismissLoadingDialog(context);
       value.fold((l) {
         String error = '';
@@ -105,7 +98,7 @@ class HomeCubit extends Cubit<HomeStates> {
                 ? {
                     'appid': ServicesURLs.apiKey,
                     'q': city,
-                    'units': isCelsius ?  'metric' : 'standard',
+                    'units': isCelsius ? 'metric' : 'standard',
                   }
                 : {
                     'appid': ServicesURLs.apiKey,

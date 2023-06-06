@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeCubit()
             ..getCurrentWeather(
               context: navigatorKey.currentState!.context,
-              city: '',
               isCelsius: HiveHelper.getTempMood(),
               lat: position!.latitude.toString(),
               lng: position!.longitude.toString(),

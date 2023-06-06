@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:weather_task/features/home_screen/presentation/view/widgets/five_days_widget.dart';
 import 'package:weather_task/features/home_screen/presentation/view/widgets/home_header.dart';
 import 'package:weather_task/utils/resources/app_colors.dart';
